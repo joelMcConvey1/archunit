@@ -1,0 +1,14 @@
+[
+  {
+    "jobName": "Product Consultant",
+    "jobDescription": "Create a clear product vision and roadmap.",
+    "capability": "PRODUCT",
+    "band": "SENIOR_ASSOCIATE"
+  },
+  {
+    "jobName": "Software Engineer",
+    "jobDescription": "Build scalable software solutions.",
+    "capability": "ENGINEERING",
+    "band": "ASSOCIATE"
+  }
+]

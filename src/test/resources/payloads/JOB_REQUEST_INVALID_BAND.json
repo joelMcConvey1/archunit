@@ -1,0 +1,6 @@
+{
+  "jobName": "Test job with invalid band",
+  "jobDescription": "A test job with an invalid band",
+  "capability": "ENGINEERING",
+  "band": "invalid-band"
+}

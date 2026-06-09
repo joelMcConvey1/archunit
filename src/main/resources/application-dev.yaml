@@ -1,0 +1,32 @@
+server:
+  port: ${HTTP_PORT:8988}
+  error:
+    include-message: always
+
+springdoc:
+  swagger-ui:
+    tagsSorter: alpha
+    operationsSorter: method
+    display-request-duration: true
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    defer-datasource-initialization: true
+    properties:
+      hibernate:
+        format_sql: true
+  sql:
+    init:
+      mode: always
+      data-locations: classpath:example-dataset.sql
+
+timezone:
+  location: Europe/London

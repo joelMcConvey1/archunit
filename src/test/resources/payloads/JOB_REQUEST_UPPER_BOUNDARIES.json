@@ -1,0 +1,6 @@
+{
+  "jobName": "Senior Software Engineer, Platform Reliability and Observability (Europe & UK Remote)",
+  "jobDescription": "As a Senior Software Engineer on the Platform Reliability team, you will design, build, and operate services that keep our APIs fast, resilient, and secure. You’ll partner with product and engineering teams to set reliability goals, improve observability, and automate incident response. Your day-to-day includes refining SLIs/SLOs, building dashboards, tuning alerts, and hardening deployments with safe rollouts and automated rollbacks. You will investigate complex production issues, lead blameless post-incident reviews, and turn lessons learned into durable fixes. You’ll also improve CI/CD pipelines, performance test critical paths, and reduce toil by creating internal tools and self-service workflows. We value pragmatic solutions, clear communication, and a customer-first mindset. Success in this role means fewer incidents, faster recovery, predictable releases, and a culture where engineers feel confident shipping changes.",
+  "capability": "ENGINEERING",
+  "band": "TRAINEE"
+}

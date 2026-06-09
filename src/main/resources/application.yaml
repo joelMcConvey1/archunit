@@ -1,0 +1,23 @@
+server:
+  port: ${HTTP_PORT:8988}
+  error:
+    include-message: always
+
+springdoc:
+  swagger-ui:
+    tagsSorter: alpha
+    operationsSorter: method
+    display-request-duration: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+
+spring:
+  jpa:
+    open-in-view: false
+
+timezone:
+  location: Europe/London

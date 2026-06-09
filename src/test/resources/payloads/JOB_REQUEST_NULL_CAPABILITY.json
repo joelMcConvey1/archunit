@@ -1,0 +1,6 @@
+{
+  "jobName": "Test job with a null capability",
+  "jobDescription": "Random Job Description",
+  "capability": "DATA_AND_AI",
+  "band": null
+}
