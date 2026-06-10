@@ -4,6 +4,7 @@ import com.example.ArchitectureTestFixtures;
 import com.tngtech.archunit.lang.ArchRule;
 import com.tngtech.archunit.lang.syntax.ArchRuleDefinition;
 import jakarta.persistence.Entity;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +12,8 @@ import org.springframework.web.bind.annotation.*;
 public class ControllerRulesTest extends ArchitectureTestFixtures {
 
     @Test
-    void controllerClasses_ShouldBeAnnotatedWith_RestControllerAnnotation() {
+    @DisplayName("Rest Controller classes should be annotated with @RestController")
+    void restControllerClasses_ShouldBeAnnotatedWith_RestControllerAnnotation() {
         ArchRule rule = ArchRuleDefinition.classes()
                 .that().haveSimpleNameEndingWith("Controller")
                 .should().beAnnotatedWith(RestController.class);
@@ -20,6 +22,7 @@ public class ControllerRulesTest extends ArchitectureTestFixtures {
     }
 
     @Test
+    @DisplayName("Controller classes should reside in the controller package")
     void noRestControllerClasses_ShouldResideOutsideDesignatedPackage() {
         ArchRule rule = ArchRuleDefinition.noClasses()
                 .that().haveSimpleNameEndingWith("Controller")
@@ -30,6 +33,7 @@ public class ControllerRulesTest extends ArchitectureTestFixtures {
     }
 
     @Test
+    @DisplayName("Rest Controller classes should not depend on each other")
     void restControllerClasses_ShouldNotDependOnEachOther() {
         ArchRule rule = ArchRuleDefinition.noClasses()
                 .that().areAnnotatedWith(RestController.class)
@@ -40,6 +44,7 @@ public class ControllerRulesTest extends ArchitectureTestFixtures {
     }
 
     @Test
+    @DisplayName("Rest Controller classes should not directly depend on Repository classes")
     void restControllers_ShouldNotDirectlyDependOnRepositories() {
         ArchRule rule = ArchRuleDefinition.noClasses()
                 .that().resideInAPackage(CONTROLLER_LAYER_PACKAGE)
@@ -50,6 +55,7 @@ public class ControllerRulesTest extends ArchitectureTestFixtures {
     }
 
     @Test
+    @DisplayName("Public methods in Rest Controller classes should be annotated with a request mapping annotation")
     void publicRestControllerMethods_ShouldBeAnnotatedWithARequestMapping() {
         ArchRule rule = ArchRuleDefinition.methods()
                 .that().arePublic()
@@ -64,6 +70,7 @@ public class ControllerRulesTest extends ArchitectureTestFixtures {
     }
 
     @Test
+    @DisplayName("Public methods in Rest Controller classes should not return JPA entities")
     void publicRestControllerMethods_ShouldNotReturnEntities() {
         ArchRule rule = ArchRuleDefinition.methods()
                 .that().arePublic()
@@ -74,6 +81,7 @@ public class ControllerRulesTest extends ArchitectureTestFixtures {
     }
 
     @Test
+    @DisplayName("Classes annotated with @RestController should be suffixed with 'Controller'")
     void restControllerClasses_ShouldBeSuffixed() {
         ArchRule rule = ArchRuleDefinition.classes()
                 .that().resideInAPackage(CONTROLLER_LAYER_PACKAGE)

@@ -1,43 +1,40 @@
 package com.example.helpers;
 
+import com.example.TestFixtures;
 import com.example.model.Band;
 import com.example.model.Capability;
 import com.example.model.JobRequest;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static com.example.helpers.Utils.normaliseJobRequest;
 import static org.junit.jupiter.api.Assertions.*;
 
-class UtilsUnitTest {
+class UtilsUnitTest extends TestFixtures {
 
     @Test
+    @DisplayName("normaliseJobRequest should return nulls for jobName and jobDescription when input fields are null")
     void normaliseJobRequest_shouldReturnNullsWhenInputFieldsNull() {
-        JobRequest request = new JobRequest(null, null, Capability.DELIVERY, Band.CONSULTANT);
+        JobRequest normalised = normaliseJobRequest(JOB_REQUEST_NULL_NAME_DESCRIPTION_JSON);
 
-        JobRequest normalized = normaliseJobRequest(request);
-
-        assertNull(normalized.jobName());
-        assertNull(normalized.jobDescription());
-        assertEquals(Capability.DELIVERY, normalized.capability());
-        assertEquals(Band.CONSULTANT, normalized.band());
+        assertNull(normalised.jobName());
+        assertNull(normalised.jobDescription());
+        assertEquals(Capability.DELIVERY, normalised.capability());
+        assertEquals(Band.CONSULTANT, normalised.band());
     }
 
     @Test
+    @DisplayName("normaliseJobRequest should trim and collapse whitespace in jobName and jobDescription")
     void normaliseJobRequest_shouldTrimAndCollapseWhitespace() {
-        String jobName = "  Senior   Software  \n\tEngineer\t  ";
-        String jobDescription = "Build  \n  Production Grade\t\t\n\n  Systems  ";
+        JobRequest normalised = normaliseJobRequest(JOB_REQUEST_STRING_SPACING_JSON);
 
-        JobRequest request = new JobRequest(jobName, jobDescription, Capability.ENGINEERING, Band.SENIOR_ASSOCIATE);
+        assertNotNull(normalised.jobName());
+        assertFalse(normalised.jobName().startsWith(" "));
+        assertFalse(normalised.jobName().endsWith(" "));
+        assertFalse(normalised.jobName().contains("  "));
 
-        JobRequest normalized = normaliseJobRequest(request);
-
-        assertNotNull(normalized.jobName());
-        assertFalse(normalized.jobName().startsWith(" "));
-        assertFalse(normalized.jobName().endsWith(" "));
-        assertFalse(normalized.jobName().contains("  "));
-
-        assertNotNull(normalized.jobDescription());
-        assertTrue(normalized.jobDescription().contains("\n\n"));
+        assertNotNull(normalised.jobDescription());
+        assertTrue(normalised.jobDescription().contains("\n\n"));
     }
 }
 

@@ -102,7 +102,7 @@ mvn org.pitest:pitest-maven:mutationCoverage
 
 #### Run OWASP Dependency Check
 
-_It is recommended to add an NVD & OSS API Key to your maven settings to reduce the runtime for this profile_
+_It is recommended to add an NVD API Key to your maven settings to reduce the runtime for this profile_
 
 ```bash
   mvn verify -Pdependency-check

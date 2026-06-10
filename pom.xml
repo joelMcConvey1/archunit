@@ -7,37 +7,40 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.5.8</version>
+        <version>4.0.6</version>
     </parent>
 
     <groupId>com.example</groupId>
     <artifactId>job-api</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <name>Job-API</name>
-    <description>Job Spring Boot Service for Mutation Testing Demonstration</description>
+    <description>Job Spring Boot Service for Architecture Testing Demonstration</description>
 
     <properties>
         <!-- Java Version -->
         <java.version>21</java.version>
 
         <!-- Dependency Versions -->
-        <apache.logging.log4j.version>2.25.3</apache.logging.log4j.version>
-        <ch.qos.logback.version>1.5.27</ch.qos.logback.version>
+        <apache.logging.log4j.version>2.26.0</apache.logging.log4j.version>
+        <archunit.version>1.4.2</archunit.version>
+        <ch.qos.logback.version>1.5.34</ch.qos.logback.version>
         <commons.lang.version>3.20.0</commons.lang.version>
         <org.assertj-core.version>3.27.7</org.assertj-core.version>
-        <org.webjar.swagger.ui.version>5.19.0</org.webjar.swagger.ui.version>
-        <owasp.dependency.check.version>12.2.0</owasp.dependency.check.version>
-        <spotbugs.version>4.9.8</spotbugs.version>
-        <springdoc.openapi.starter.io.version>2.8.0</springdoc.openapi.starter.io.version>
+        <org.webjar.swagger.ui.version>5.32.6</org.webjar.swagger.ui.version>
+        <owasp.dependency.check.version>12.2.2</owasp.dependency.check.version>
+        <spotbugs.version>4.10.2</spotbugs.version>
+        <spring.framework.version>7.0.8</spring.framework.version>
+        <springdoc.openapi.starter.io.version>3.0.0</springdoc.openapi.starter.io.version>
         <pitest.junit5.version>1.2.3</pitest.junit5.version>
-        <archunit.version>1.4.2</archunit.version>
+        <tomcat.embed.core.version>11.0.22</tomcat.embed.core.version>
+        <tomcat.embed.websocket.version>11.0.22</tomcat.embed.websocket.version>
 
         <!-- Plugin Versions -->
-        <jacoco-maven.version>0.8.14</jacoco-maven.version>
+        <jacoco-maven.version>0.8.15</jacoco-maven.version>
         <maven.checkstyle.version>3.6.0</maven.checkstyle.version>
-        <maven.failsafe.version>3.5.4</maven.failsafe.version>
-        <maven.surefire.version>3.5.4</maven.surefire.version>
-        <spotbugs.maven.plugin.version>4.9.8.2</spotbugs.maven.plugin.version>
+        <maven.failsafe.version>3.5.6</maven.failsafe.version>
+        <maven.surefire.version>3.5.6</maven.surefire.version>
+        <spotbugs.maven.plugin.version>4.10.2.0</spotbugs.maven.plugin.version>
         <pitest.maven.version>1.15.0</pitest.maven.version>
     </properties>
 
@@ -83,6 +86,18 @@
         </dependency>
 
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webmvc-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
@@ -98,48 +113,37 @@
         <dependency>
             <groupId>com.tngtech.archunit</groupId>
             <artifactId>archunit-junit5-api</artifactId>
-            <version>1.4.2</version>
+            <version>${archunit.version}</version>
             <scope>test</scope>
         </dependency>
 
         <!-- Overridden Dependencies (Explicit overrides due to known CVEs detected by OWASP Dependency Check) -->
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>${commons.lang.version}</version>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-core</artifactId>
+            <version>${tomcat.embed.core.version}</version>
+            <scope>compile</scope>
         </dependency>
 
         <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-api</artifactId>
-            <version>${apache.logging.log4j.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>swagger-ui</artifactId>
-            <version>${org.webjar.swagger.ui.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-core</artifactId>
-            <version>${ch.qos.logback.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>${ch.qos.logback.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.assertj</groupId>
-            <artifactId>assertj-core</artifactId>
-            <version>${org.assertj-core.version}</version>
-            <scope>test</scope>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-websocket</artifactId>
+            <version>${tomcat.embed.websocket.version}</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-framework-bom</artifactId>
+                <version>${spring.framework.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <pluginManagement>
@@ -150,7 +154,6 @@
                     <version>${owasp.dependency.check.version}</version>
                     <configuration>
                         <nvdApiServerId>nvd</nvdApiServerId>
-                        <ossIndexServerId>oss</ossIndexServerId>
                         <failBuildOnCVSS>7</failBuildOnCVSS>
                         <formats>
                             <format>HTML</format>
@@ -518,4 +521,3 @@
         </profile>
     </profiles>
 </project>
-

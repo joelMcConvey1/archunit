@@ -4,12 +4,14 @@ import com.example.ArchitectureTestFixtures;
 import com.tngtech.archunit.lang.ArchRule;
 import com.tngtech.archunit.lang.syntax.ArchRuleDefinition;
 import jakarta.persistence.Entity;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.stereotype.Service;
 
 public class ServiceRulesTest extends ArchitectureTestFixtures {
 
     @Test
+    @DisplayName("Service classes should be annotated with @Service")
     void serviceClasses_ShouldBeAnnotatedWithServiceAnnotation() {
         ArchRule rule = ArchRuleDefinition.classes()
                 .that().haveSimpleNameEndingWith("Service")
@@ -19,6 +21,7 @@ public class ServiceRulesTest extends ArchitectureTestFixtures {
     }
 
     @Test
+    @DisplayName("Service classes should reside within the service package")
     void noServiceClasses_ShouldResideOutsideDesignatedPackage() {
         ArchRule rule = ArchRuleDefinition.noClasses()
                 .that().haveSimpleNameEndingWith("Service")
@@ -29,6 +32,7 @@ public class ServiceRulesTest extends ArchitectureTestFixtures {
     }
 
     @Test
+    @DisplayName("Service classes should not depend on controller layer")
     void serviceClasses_ShouldNotDependOnControllerLayer() {
         ArchRule rule = ArchRuleDefinition.noClasses()
                 .that().resideInAPackage(SERVICE_LAYER_PACKAGE)
@@ -39,6 +43,7 @@ public class ServiceRulesTest extends ArchitectureTestFixtures {
     }
 
     @Test
+    @DisplayName("Public methods in service classes should not return JPA entities")
     void publicServiceMethods_ShouldNotReturnEntities() {
         ArchRule rule = ArchRuleDefinition.methods()
                 .that().arePublic()
@@ -49,6 +54,7 @@ public class ServiceRulesTest extends ArchitectureTestFixtures {
     }
 
     @Test
+    @DisplayName("Classes annotated with @Service should be suffixed with 'Service'")
     void serviceClasses_ShouldBeSuffixed() {
         ArchRule rule = ArchRuleDefinition.classes()
                 .that().resideInAPackage(SERVICE_LAYER_PACKAGE)

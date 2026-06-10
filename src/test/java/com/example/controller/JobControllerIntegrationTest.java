@@ -3,17 +3,17 @@ package com.example.controller;
 import com.example.TestFixtures;
 import com.example.exception.JobNotFoundException;
 import com.example.service.JobService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
+import tools.jackson.databind.json.JsonMapper;
 
 import java.util.stream.Stream;
 
@@ -30,7 +30,7 @@ class JobControllerIntegrationTest extends TestFixtures {
     private MockMvc mockMvc;
 
     @Autowired
-    private ObjectMapper objectMapper;
+    private JsonMapper jsonMapper;
 
     @MockitoBean
     private JobService jobService;
@@ -80,7 +80,7 @@ class JobControllerIntegrationTest extends TestFixtures {
 
         mockMvc.perform(post(BASE_PATH)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(JOB_REQUEST_UPPER_BOUNDARIES)))
+                        .content(jsonMapper.writeValueAsString(JOB_REQUEST_UPPER_BOUNDARIES)))
                 .andExpect(status().isCreated())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
     }
@@ -92,7 +92,7 @@ class JobControllerIntegrationTest extends TestFixtures {
 
         mockMvc.perform(post(BASE_PATH)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(JOB_REQUEST_LOWER_BOUNDARIES)))
+                        .content(jsonMapper.writeValueAsString(JOB_REQUEST_LOWER_BOUNDARIES)))
                 .andExpect(status().isCreated())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
     }
@@ -155,9 +155,9 @@ class JobControllerIntegrationTest extends TestFixtures {
 
         mockMvc.perform(put(BASE_PATH + "/1")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(JOB_REQUEST)))
+                        .content(jsonMapper.writeValueAsString(JOB_REQUEST)))
                 .andExpect(status().isOk())
-                .andExpect(content().json(objectMapper.writeValueAsString(JOB_RESPONSE)));
+                .andExpect(content().json(jsonMapper.writeValueAsString(JOB_RESPONSE)));
     }
 
     @Test
@@ -165,7 +165,7 @@ class JobControllerIntegrationTest extends TestFixtures {
     void updateJob_shouldReturnStatusCode400_whenIdIsLessThanOne() throws Exception {
         mockMvc.perform(put(BASE_PATH + "/0")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(JOB_REQUEST)))
+                        .content(jsonMapper.writeValueAsString(JOB_REQUEST)))
                 .andExpect(status().isBadRequest());
 
         verifyNoInteractions(jobService);
@@ -178,7 +178,7 @@ class JobControllerIntegrationTest extends TestFixtures {
 
         mockMvc.perform(put(BASE_PATH + "/1")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(JOB_REQUEST)))
+                        .content(jsonMapper.writeValueAsString(JOB_REQUEST)))
                 .andExpect(status().isNotFound());
     }
 
