@@ -1,0 +1,9 @@
+services:
+  job-api:
+    container_name: job-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8988:8988"
+    restart: unless-stopped

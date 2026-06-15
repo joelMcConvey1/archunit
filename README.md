@@ -32,22 +32,22 @@ provide an example of using architecture testing via ArchUnit.
 
 ## Running The Application
 
-#### Build the project
+#### Build The project
 
 ```bash
 mvn clean install
 ```
 
-#### Run the Spring Boot app
+#### Run The Spring Boot App
 
 ```bash
 mvn spring-boot:run
 ```
 
-#### OR Run the Spring Boot app W/ Pre-Populated Data (Dev Profile)
+#### Run Via Docker Image
 
 ```bash
-mvn spring-boot:run -Dspring-boot.run.profiles=dev
+docker compose up -d --build
 ```
 
 Swagger UI is available at: http://localhost:8988/swagger-ui.html
@@ -92,7 +92,7 @@ mvn clean verify -Parchitecture-tests
 mvn clean verify -Pmutation-tests
 ````
 
-#### Running Mutation Tests Only (No Configuration) _The project MUST be built first for this command._
+#### Running Mutation Tests Only (No Configuration) _The Project MUST Be Built First_
 
 ```bash
 mvn org.pitest:pitest-maven:mutationCoverage
@@ -105,13 +105,13 @@ mvn org.pitest:pitest-maven:mutationCoverage
 _It is recommended to add an NVD API Key to your maven settings to reduce the runtime for this profile_
 
 ```bash
-  mvn verify -Pdependency-check
+mvn verify -Pdependency-check
 ```
 
-#### Check for Dependency Upgrades
+#### Check For Dependency Upgrades
 
 ```bash
-  mvn versions:display-property-updates
+mvn versions:display-property-updates
 ```
 
 ## Report Locations
@@ -131,15 +131,3 @@ SpotBugs Report: `target/spotbugs/spotbugs.html`
 If you execute the dependency-check profile this will also generate a report. It can be located here:
 
 Dependency Check Report: `target/dependency-check/dependency-check-report.html`
-
-## Quality & Security
-
-This project integrates multiple quality and security checks:
-
-- Static analysis via SpotBugs
-- Dependency vulnerability scanning via OWASP Dependency Check
-- Code coverage via JaCoCo
-- Mutation testing via PiTest
-- Architecture testing via ArchUnit
-
-These tools are designed to work together to enforce defensive, test-driven development.

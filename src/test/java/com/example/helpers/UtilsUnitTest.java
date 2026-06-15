@@ -37,4 +37,3 @@ class UtilsUnitTest extends TestFixtures {
         assertTrue(normalised.jobDescription().contains("\n\n"));
     }
 }
-

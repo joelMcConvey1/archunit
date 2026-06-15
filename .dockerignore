@@ -1,0 +1,39 @@
+### Ignore environment variable files ###
+.env
+
+### Ignore VCS ###
+.git
+.gitignore
+.github/
+
+### Ignore build outputs ###
+target/
+
+### Ignore IDE/editor configs ###
+*.iml
+.idea/
+.vscode/
+*.swp
+*.swo
+
+### Ignore OS files ###
+.DS_Store
+Thumbs.db
+
+### Ignore logs and temp files ###
+*.log
+*.tmp
+*.bak
+
+### Ignore test artifacts ###
+coverage/
+jacoco.exec
+surefire-reports/
+test-output/
+
+### Ignore Docker-related files not needed inside image ###
+docker-compose.yml
+.dockerignore
+
+### Ignore CI/CD configs (already handled outside container) ###
+.gitlab-ci.yml

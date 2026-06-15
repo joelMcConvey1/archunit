@@ -5,9 +5,9 @@ server:
 
 springdoc:
   swagger-ui:
-    tagsSorter: alpha
-    operationsSorter: method
     display-request-duration: true
+    operationsSorter: method
+    tagsSorter: alpha
 
 management:
   endpoints:
